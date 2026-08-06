@@ -34,6 +34,12 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Serve static frontend build if it exists (production)
+const clientDist = path.join(__dirname, "..", "client", "dist");
+if (fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist));
+}
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -45,10 +51,21 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/users", userRoutes);
 
-// Health check
-app.get("/", (req, res) => {
-  res.json({ message: "Meenakshi Studio API is running 🚀" });
-});
+// Health check (API)
+if (clientDist) {
+  app.get("/api/health", (req, res) => {
+    res.json({ message: "Meenakshi Studio API is running 🚀" });
+  });
+
+  // SPA fallback: serve index.html for any non-API route (client-side routing)
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(clientDist, "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.json({ message: "Meenakshi Studio API is running 🚀" });
+  });
+}
 
 app.use(notFound);
 app.use(errorHandler);

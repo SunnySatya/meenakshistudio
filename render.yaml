@@ -3,9 +3,8 @@ services:
     name: meenakshistudio
     runtime: node
     plan: free
-    # Build from the server directory
-    rootDir: server
-    buildCommand: npm install
+    # Install all deps (root postinstall installs server & client), then build client
+    buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
       - key: MONGO_URI
