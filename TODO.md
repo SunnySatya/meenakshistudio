@@ -1,25 +1,23 @@
-# TODO: Remove all Site Settings related content
+# Money Management Dashboard
+
+## Task
+
+Add a money-management dashboard to the existing admin Dashboard (Total Earnings, Remaining/Due, Advance Bookings, Total Booking Value, status breakdown) while keeping all existing features.
 
 ## Backend
 
-- [x] Delete `server/models/SiteSettings.js`
-- [x] Delete `server/controllers/settingsController.js`
-- [x] Delete `server/routes/settingsRoutes.js`
-- [x] Delete `server/update-announce.js`
-- [x] Edit `server/server.js` — remove settingsRoutes import and /api/settings route
-- [x] Edit `server/seed.js` — remove SiteSettings import, deleteMany, and seeding block
+- [x] No backend changes needed — metrics derived from booking data (totalAmount, paidAmount, status)
 
 ## Frontend
 
-- [x] Edit `client/src/pages/Home.jsx` — remove settings state and API call
-- [x] Edit `client/src/components/Hero.jsx` — remove settings prop and announcement fallback
-- [x] Edit `client/src/pages/admin/Dashboard.jsx` — remove settings mention
+- [x] 1. Extended `client/src/pages/admin/Dashboard.jsx` with money-management cards + breakdown
+- [x] 2. Added money-specific styles in `client/src/css/admin.css` (money-grid, accent colors, responsive)
 
-## Database
+## Test
 
-- [x] Clear `sitesettings` collection from MongoDB Atlas
+- [x] 3. Dashboard shows existing count cards + new money metrics (responsive across breakpoints)
+- [x] 4. Verified servers running: backend on :5000 (200 OK), frontend on :3000 (200 OK)
 
-## Verify
+## Note
 
-- [x] Start server and confirm no errors
-- [x] Confirm sitesettings collection removed from Atlas
+- `npm install` failed with "'npm' is not recognized" — a PATH issue in the nested `postinstall` script, unrelated to the app. Servers verified running and healthy.

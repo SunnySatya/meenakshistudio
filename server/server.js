@@ -31,12 +31,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static uploads
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// Serve static uploads with caching (1 day) for better performance
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "uploads"), {
+    maxAge: "1d",
+    etag: true,
+    immutable: false,
+  }),
+);
 
 // Serve static frontend build if it exists (production)
 const clientDist = path.join(__dirname, "..", "client", "dist");
-if (fs.existsSync(clientDist)) {
+const hasClientDist = fs.existsSync(path.join(clientDist, "index.html"));
+if (hasClientDist) {
   app.use(express.static(clientDist));
 }
 
@@ -52,7 +60,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/users", userRoutes);
 
 // Health check (API)
-if (clientDist) {
+if (hasClientDist) {
   app.get("/api/health", (req, res) => {
     res.json({ message: "Meenakshi Studio API is running 🚀" });
   });

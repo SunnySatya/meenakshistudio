@@ -10,6 +10,7 @@ export default function Dashboard() {
     testimonials: 0,
     bookings: 0,
   });
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function Dashboard() {
           categories,
           packages,
           testimonials,
-          bookings,
+          bookingRes,
         ] = await Promise.all([
           api.get("/portfolio"),
           api.get("/photographers"),
@@ -36,8 +37,9 @@ export default function Dashboard() {
           categories: categories.data.length,
           packages: packages.data.length,
           testimonials: testimonials.data.length,
-          bookings: bookings.data.length,
+          bookings: bookingRes.data.length,
         });
+        setBookings(bookingRes.data);
       } catch (err) {
         console.error("Failed to load dashboard", err);
       } finally {
@@ -56,6 +58,84 @@ export default function Dashboard() {
     { label: "Bookings", value: counts.bookings, icon: "📅" },
   ];
 
+  // ----- Money management metrics (derived from bookings) -----
+  const money = { totalEarned: 0, due: 0, totalValue: 0 };
+  const statusCount = {
+    pending: 0,
+    confirmed: 0,
+    completed: 0,
+    cancelled: 0,
+  };
+  bookings.forEach((b) => {
+    const total = Number(b.totalAmount) || 0;
+    const paid = Number(b.paidAmount) || 0;
+    if (b.status !== "cancelled") {
+      money.totalEarned += paid;
+      money.totalValue += total;
+      money.due += Math.max(0, total - paid);
+    }
+    if (statusCount[b.status] !== undefined) {
+      statusCount[b.status] += 1;
+    }
+  });
+
+  const advanceBookings = statusCount.pending + statusCount.confirmed;
+
+  const moneyCards = [
+    {
+      label: "Total Earnings",
+      value: "₹" + money.totalEarned.toLocaleString(),
+      icon: "💰",
+      accent: "green",
+    },
+    {
+      label: "Advance Bookings",
+      value: advanceBookings,
+      icon: "📌",
+      accent: "blue",
+      sub: `₹${money.due.toLocaleString()} pending`,
+    },
+    {
+      label: "Remaining / Due",
+      value: "₹" + money.due.toLocaleString(),
+      icon: "⏳",
+      accent: "red",
+    },
+    {
+      label: "Total Booking Value",
+      value: "₹" + money.totalValue.toLocaleString(),
+      icon: "🧾",
+      accent: "gold",
+    },
+  ];
+
+  const statusCards = [
+    {
+      label: "Completed",
+      value: statusCount.completed,
+      icon: "✅",
+      accent: "green",
+    },
+    {
+      label: "Confirmed",
+      value: statusCount.confirmed,
+      icon: "🟢",
+      accent: "blue",
+    },
+    {
+      label: "Pending",
+      value: statusCount.pending,
+      icon: "🕒",
+      accent: "gold",
+    },
+    {
+      label: "Cancelled",
+      value: statusCount.cancelled,
+      icon: "❌",
+      accent: "red",
+    },
+  ];
+
   if (loading) {
     return (
       <div className="empty-state">
@@ -67,6 +147,7 @@ export default function Dashboard() {
 
   return (
     <div>
+      {/* Existing resource counts */}
       <div className="stats-grid">
         {stats.map((s) => (
           <div className="stat-card" key={s.label}>
@@ -77,6 +158,52 @@ export default function Dashboard() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Money Management */}
+      <div className="admin-card">
+        <div className="money-head">
+          <h3>💰 Money Management</h3>
+          <span className="money-sub">Based on booking payments</span>
+        </div>
+
+        <div className="stats-grid money-grid">
+          {moneyCards.map((c) => (
+            <div
+              className={`stat-card money-card money-${c.accent}`}
+              key={c.label}
+            >
+              <div className="stat-card-icon">{c.icon}</div>
+              <div className="stat-card-info">
+                <h4 className="money-value">{c.value}</h4>
+                <p>{c.label}</p>
+                {c.sub && <small className="money-sub">{c.sub}</small>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Booking status breakdown */}
+      <div className="admin-card">
+        <div className="money-head">
+          <h3>📊 Booking Status</h3>
+          <span className="money-sub">Breakdown by status</span>
+        </div>
+        <div className="stats-grid money-grid">
+          {statusCards.map((c) => (
+            <div
+              className={`stat-card money-card money-${c.accent}`}
+              key={c.label}
+            >
+              <div className="stat-card-icon">{c.icon}</div>
+              <div className="stat-card-info">
+                <h4 className="money-value">{c.value}</h4>
+                <p>{c.label} Bookings</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="admin-card">

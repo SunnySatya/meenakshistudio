@@ -15,6 +15,7 @@ export default function ManagePortfolio() {
   const [preview, setPreview] = useState("");
   const [toast, setToast] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const fileRef = useRef(null);
 
   const fetchItems = async () => {
@@ -56,6 +57,7 @@ export default function ManagePortfolio() {
     fd.append("featured", form.featured);
     if (file) fd.append("image", file);
 
+    setUploading(true);
     try {
       if (editingId) {
         await api.put(`/portfolio/${editingId}`, fd);
@@ -68,6 +70,8 @@ export default function ManagePortfolio() {
       fetchItems();
     } catch (err) {
       showToast(err.response?.data?.message || "Failed to save", "error");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -168,14 +172,24 @@ export default function ManagePortfolio() {
             )}
           </div>
           <div className="form-actions">
-            <button type="submit" className="btn btn-gold">
-              {editingId ? "Update Item" : "Upload Work"}
+            <button type="submit" className="btn btn-gold" disabled={uploading}>
+              {uploading ? (
+                <span className="btn-loader">
+                  <span className="spinner-btn"></span>
+                  {editingId ? "Updating…" : "Uploading…"}
+                </span>
+              ) : editingId ? (
+                "Update Item"
+              ) : (
+                "Upload Work"
+              )}
             </button>
             {editingId && (
               <button
                 type="button"
                 className="btn btn-glass"
                 onClick={resetForm}
+                disabled={uploading}
               >
                 Cancel
               </button>

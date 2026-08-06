@@ -58,7 +58,13 @@ export default function Portfolio({ onOpen }) {
               key={item._id}
               onClick={() => onOpen(item)}
             >
-              <img src={item.image} alt={item.title} />
+              <img
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                decoding="async"
+              />
+
               <div className="masonry-overlay">
                 <div className="zoom-icon">🔍</div>
                 <div>
