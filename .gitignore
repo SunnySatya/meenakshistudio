@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment variables (WARNING: contains DB credentials — never commit)
+.env
+server/.env
+client/.env
+*.env
+*.env.local
+*.env.production
+
+# Build outputs
+dist/
+build/
+client/dist/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Uploads (local stored images — usually not committed, adjust if you WANT them in repo)
+server/uploads/*
+!server/uploads/.gitkeep
+

@@ -1,0 +1,154 @@
+/* ==========================================================================
+   MEENAKSHI STUDIO — ADMIN PANEL
+   Light theme matching the public site (Facebook-blue accent).
+   Loaded after styles.css via main.jsx.
+   ========================================================================== */
+
+/* --- App shell ---------------------------------------------------------- */
+.admin-app { display: flex; min-height: 100vh; background: var(--bg); }
+
+.admin-sidebar {
+  width: 260px; flex-shrink: 0; background: #fff;
+  border-right: 1px solid var(--border-light);
+  padding: 20px 14px; display: flex; flex-direction: column; gap: 8px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.admin-sidebar .logo { padding: 0 8px 16px; border-bottom: 1px solid var(--border-light); margin-bottom: 8px; font-size: 1.1rem; }
+.admin-sidebar .logo .logo-img { width: 44px; height: 44px; }
+
+.admin-nav { display: flex; flex-direction: column; gap: 4px; }
+.admin-nav a {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border-radius: var(--radius-sm); color: var(--text-secondary);
+  font-weight: 600; font-size: 0.9rem; transition: all 0.2s;
+}
+.admin-nav a:hover { background: var(--bg); color: var(--text-primary); }
+.admin-nav a.active { background: var(--fb-blue-soft); color: var(--fb-blue); }
+.nav-icon { font-size: 1.05rem; width: 22px; text-align: center; flex-shrink: 0; }
+
+.logout-btn {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border-radius: var(--radius-sm); color: var(--fb-red);
+  font-weight: 600; font-size: 0.9rem; margin-top: auto;
+  text-align: left; transition: all 0.2s;
+}
+.logout-btn:hover { background: var(--red-soft); }
+
+.admin-main { flex: 1; min-width: 0; padding: 24px; }
+
+/* --- Header ------------------------------------------------------------- */
+.admin-header {
+  background: #fff; border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.admin-header h1 { font-family: var(--font-sans); font-size: 1.25rem; font-weight: 700; margin-right: auto; }
+.admin-header-actions { display: flex; gap: 8px; }
+.admin-user {
+  display: flex; align-items: center; gap: 10px; padding-left: 16px;
+  border-left: 1px solid var(--border-light); font-weight: 600; font-size: 0.9rem;
+}
+.avatar-sm { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; border: 2px solid var(--fb-blue); flex-shrink: 0; }
+.avatar-sm img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Cards & forms ------------------------------------------------------ */
+.admin-card {
+  background: #fff; border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px;
+  box-shadow: var(--shadow-soft);
+}
+.admin-card h3 { font-family: var(--font-sans); font-size: 1.05rem; margin-bottom: 16px; }
+
+.admin-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.admin-form .form-group.full { grid-column: 1 / -1; }
+.admin-form .form-group label {
+  display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 6px;
+}
+.admin-form .form-group input,
+.admin-form .form-group select,
+.admin-form .form-group textarea {
+  width: 100%; padding: 11px 14px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--text-primary); font-size: 0.95rem; outline: none; transition: all 0.2s;
+}
+.admin-form .form-group input:focus,
+.admin-form .form-group select:focus,
+.admin-form .form-group textarea:focus { border-color: var(--fb-blue); background: #fff; box-shadow: 0 0 0 3px var(--fb-blue-soft); }
+.admin-form .form-group textarea { min-height: 90px; resize: vertical; }
+.admin-form .form-group input::placeholder,
+.admin-form .form-group textarea::placeholder { color: var(--text-soft); }
+
+.form-actions { display: flex; gap: 10px; flex-wrap: wrap; grid-column: 1 / -1; }
+.file-input-wrap input[type="file"] { padding: 8px; }
+.image-preview {
+  margin-top: 12px; width: 160px; height: 120px; object-fit: cover;
+  border-radius: var(--radius-sm); border: 1px solid var(--border-light);
+}
+
+/* --- Dashboard stats ---------------------------------------------------- */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.stat-card {
+  background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius-lg);
+  padding: 20px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-soft);
+}
+.stat-card-icon {
+  width: 52px; height: 52px; border-radius: var(--radius-md);
+  background: var(--fb-blue-soft); display: flex; align-items: center;
+  justify-content: center; font-size: 1.5rem; flex-shrink: 0;
+}
+.stat-card-info h4 { font-family: var(--font-sans); font-size: 1.5rem; font-weight: 800; color: var(--fb-blue); line-height: 1; }
+.stat-card-info p { font-size: 0.82rem; color: var(--text-secondary); font-weight: 600; margin-top: 4px; }
+
+/* --- Tables ------------------------------------------------------------- */
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 560px; }
+.admin-table th {
+  text-align: left; font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-soft); font-weight: 700;
+  padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap;
+}
+.admin-table td { padding: 12px; border-bottom: 1px solid var(--border-light); vertical-align: middle; color: var(--text-primary); }
+.admin-table tbody tr { transition: background 0.15s; }
+.admin-table tbody tr:hover td { background: var(--card-hover); }
+.admin-table tbody tr:last-child td { border-bottom: none; }
+.thumb { width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border-light); }
+
+.actions { display: flex; gap: 8px; flex-wrap: nowrap; }
+.btn-edit, .btn-del { padding: 7px 14px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 700; transition: all 0.2s; }
+.btn-edit { background: var(--fb-blue-soft); color: var(--fb-blue); }
+.btn-edit:hover { background: var(--fb-blue); color: #fff; }
+.btn-del { background: var(--red-soft); color: var(--fb-red); }
+.btn-del:hover { background: var(--fb-red); color: #fff; }
+.btn-del:disabled { opacity: 0.4; cursor: not-allowed; }
+.pay-input { width: 90px; padding: 7px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.88rem; }
+
+/* --- Empty state & loading ---------------------------------------------- */
+.empty-state { text-align: center; padding: 40px 16px; }
+.empty-icon { font-size: 2.6rem; margin-bottom: 10px; }
+.empty-state h3 { font-family: var(--font-sans); font-size: 1.05rem; margin-bottom: 6px; }
+.empty-state p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px; }
+
+.spinner {
+  width: 34px; height: 34px; margin: 0 auto 12px;
+  border: 3px solid var(--border-light); border-top-color: var(--fb-blue);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.admin-loading {
+  min-height: 60vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  color: var(--text-secondary); font-size: 0.9rem;
+}
+
+/* --- Toast -------------------------------------------------------------- */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 10px; padding: 14px 20px;
+  border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem;
+  box-shadow: var(--shadow-float); z-index: 3000;
+  background: #fff; border: 1px solid var(--border-light);
+  max-width: calc(100vw - 32px);
+}
+.toast.success { border-left: 4px solid var(--fb-green); }
+.toast.error { border-left: 4px solid var(--fb-red); }
+.toast-icon { font-size: 1.1rem; }
