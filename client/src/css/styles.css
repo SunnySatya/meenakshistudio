@@ -352,6 +352,36 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; line-height: 
 .lightbox-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.8)); color: #fff; }
 
 /* ============================================================
+   WHATSAPP FLOATING BUTTON
+   ============================================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  z-index: 1500;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 26px rgba(37, 211, 102, 0.6);
+}
+.whatsapp-icon {
+  width: 34px;
+  height: 34px;
+}
+
+/* ============================================================
    LEGAL PAGES (Privacy / Terms / Cookies)
    ============================================================ */
 .legal-page { min-height: 100vh; background: var(--bg); padding: 96px 0 48px; }
