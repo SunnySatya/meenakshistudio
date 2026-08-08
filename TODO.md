@@ -1,23 +1,26 @@
-# Money Management Dashboard
+# TODO: Cloudinary Cloud Storage Implementation
 
-## Task
+## Goal
 
-Add a money-management dashboard to the existing admin Dashboard (Total Earnings, Remaining/Due, Advance Bookings, Total Booking Value, status breakdown) while keeping all existing features.
+Make admin-uploaded images persist across server restarts by uploading them to Cloudinary (free tier) instead of the ephemeral local filesystem.
 
-## Backend
+## Steps
 
-- [x] No backend changes needed — metrics derived from booking data (totalAmount, paidAmount, status)
+- [x] 1. Add `cloudinary` dependency to `server/package.json`
+- [x] 2. Update `server/middleware/imageProcessor.js` to upload to Cloudinary and delete local temp file
+- [x] 3. Update `server/controllers/portfolioController.js` to use Cloudinary URL (backward compatible)
+- [x] 4. Update `render.yaml` to add Cloudinary env vars
+- [x] 5. Create `.env.example` documenting Cloudinary vars
+- [x] 6. Update `README.md` with Cloudinary setup instructions
+- [x] 7. Install dependencies (`npm install cloudinary` in server)
+- [x] 8. Verify code changes
+- [x] 9. Confirm Cloudinary credentials present and valid in server/.env
+- [x] 10. Verified real end-to-end upload to Cloudinary succeeds (SUCCESS)
 
-## Frontend
+## User Required Actions
 
-- [x] 1. Extended `client/src/pages/admin/Dashboard.jsx` with money-management cards + breakdown
-- [x] 2. Added money-specific styles in `client/src/css/admin.css` (money-grid, accent colors, responsive)
-
-## Test
-
-- [x] 3. Dashboard shows existing count cards + new money metrics (responsive across breakpoints)
-- [x] 4. Verified servers running: backend on :5000 (200 OK), frontend on :3000 (200 OK)
-
-## Note
-
-- `npm install` failed with "'npm' is not recognized" — a PATH issue in the nested `postinstall` script, unrelated to the app. Servers verified running and healthy.
+- [x] Create free Cloudinary account at cloudinary.com
+- [x] Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET to server/.env
+- [ ] (If deployed) Add the 3 env vars in Render dashboard
+- [ ] Restart the server, then re-upload images through admin panel
+- [ ] NOTE: Uploaded images must be under Cloudinary's free-tier 10MB file limit

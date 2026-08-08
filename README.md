@@ -59,9 +59,14 @@ Create a `.env` file in the `server` folder:
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/meenakshi
 JWT_SECRET=your_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
 > Replace `MONGO_URI` with your own MongoDB connection string (local or Atlas). The `JWT_SECRET` can be any random string.
+
+> **Cloudinary is required for uploaded images to persist.** Create a free account at https://cloudinary.com and copy your **Cloud Name**, **API Key**, and **API Secret** from the Dashboard into the `.env` file. Without these, newly uploaded images fall back to local storage, which is **not** persistent on deployed servers (they disappear after a restart/deploy).
 
 ### 3. Seed the database (optional)
 
