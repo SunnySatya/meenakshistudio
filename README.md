@@ -72,10 +72,7 @@ cd server
 npm run seed
 ```
 
-**Default admin login after seeding:**
 
-- Email: `admin@lumiere.com`
-- Password: `admin123`
 
 ### 4. Run the servers
 
