@@ -14,7 +14,11 @@ const getPortfolio = async (req, res) => {
 const createPortfolio = async (req, res) => {
   let image = req.body.image || "";
   if (req.file) {
-    image = `/uploads/${req.file.filename}`;
+    // req.file.filename is now the Cloudinary URL (or local path when
+    // Cloudinary isn't configured / upload failed).
+    image = req.file.filename.startsWith("http")
+      ? req.file.filename
+      : `/uploads/${req.file.filename}`;
   }
   const { title, category, photographer, featured } = req.body;
   if (!title || !image) {
@@ -39,11 +43,18 @@ const updatePortfolio = async (req, res) => {
     return res.status(404).json({ message: "Portfolio item not found" });
   }
   item.title = req.body.title || item.title;
-  item.category = req.body.category !== undefined ? req.body.category : item.category;
-  item.photographer = req.body.photographer !== undefined ? req.body.photographer : item.photographer;
-  item.featured = req.body.featured !== undefined ? req.body.featured : item.featured;
+  item.category =
+    req.body.category !== undefined ? req.body.category : item.category;
+  item.photographer =
+    req.body.photographer !== undefined
+      ? req.body.photographer
+      : item.photographer;
+  item.featured =
+    req.body.featured !== undefined ? req.body.featured : item.featured;
   if (req.file) {
-    item.image = `/uploads/${req.file.filename}`;
+    item.image = req.file.filename.startsWith("http")
+      ? req.file.filename
+      : `/uploads/${req.file.filename}`;
   } else if (req.body.image) {
     item.image = req.body.image;
   }
@@ -63,4 +74,9 @@ const deletePortfolio = async (req, res) => {
   res.json({ message: "Portfolio item removed" });
 };
 
-module.exports = { getPortfolio, createPortfolio, updatePortfolio, deletePortfolio };
+module.exports = {
+  getPortfolio,
+  createPortfolio,
+  updatePortfolio,
+  deletePortfolio,
+};

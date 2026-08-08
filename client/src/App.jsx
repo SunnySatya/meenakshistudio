@@ -15,6 +15,7 @@ import ManageTestimonials from "./pages/admin/ManageTestimonials";
 import ManageBookings from "./pages/admin/ManageBookings";
 import ManageUsers from "./pages/admin/ManageUsers";
 import { useAuth } from "./context/AuthContext";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -34,31 +35,34 @@ const ProtectedRoute = ({ children }) => {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/auth" element={<UserAuth />} />
-      <Route path="/dashboard" element={<UserDashboard />} />
-      <Route path="/privacy" element={<Legal type="privacy" />} />
-      <Route path="/terms" element={<Legal type="terms" />} />
-      <Route path="/cookies" element={<Legal type="cookies" />} />
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Dashboard />} />
-        <Route path="portfolio" element={<ManagePortfolio />} />
-        <Route path="photographers" element={<ManagePhotographers />} />
-        <Route path="categories" element={<ManageCategories />} />
-        <Route path="packages" element={<ManagePackages />} />
-        <Route path="testimonials" element={<ManageTestimonials />} />
-        <Route path="bookings" element={<ManageBookings />} />
-        <Route path="users" element={<ManageUsers />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<UserAuth />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/privacy" element={<Legal type="privacy" />} />
+        <Route path="/terms" element={<Legal type="terms" />} />
+        <Route path="/cookies" element={<Legal type="cookies" />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="portfolio" element={<ManagePortfolio />} />
+          <Route path="photographers" element={<ManagePhotographers />} />
+          <Route path="categories" element={<ManageCategories />} />
+          <Route path="packages" element={<ManagePackages />} />
+          <Route path="testimonials" element={<ManageTestimonials />} />
+          <Route path="bookings" element={<ManageBookings />} />
+          <Route path="users" element={<ManageUsers />} />
+        </Route>
+      </Routes>
+      <WhatsAppButton />
+    </>
   );
 }

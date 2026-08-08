@@ -1,4 +1,5 @@
 const Booking = require("../models/Booking");
+const Package = require("../models/Package");
 
 // @desc   Get all bookings
 // @route  GET /api/bookings
@@ -38,6 +39,17 @@ const createBooking = async (req, res) => {
   if (!name || !email) {
     return res.status(400).json({ message: "Name and email are required" });
   }
+
+  // If a package was selected, resolve its price from the database so the
+  // admin's "Total" field shows the correct package amount automatically.
+  let resolvedTotal = totalAmount || 0;
+  if (pkg) {
+    const found = await Package.findOne({ name: pkg });
+    if (found) {
+      resolvedTotal = found.price;
+    }
+  }
+
   const booking = await Booking.create({
     name,
     email,
@@ -48,7 +60,7 @@ const createBooking = async (req, res) => {
     budget: budget || 0,
     photographer: photographer || "",
     package: pkg || "",
-    totalAmount: totalAmount || 0,
+    totalAmount: resolvedTotal,
     paidAmount: paidAmount || 0,
   });
   res.status(201).json(booking);

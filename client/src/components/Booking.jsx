@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Booking() {
   const { user } = useAuth();
+  const [packages, setPackages] = useState([]);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -14,6 +15,21 @@ export default function Booking() {
     location: "",
     message: "",
   });
+
+  // Load packages to populate the dropdown and show the selected price.
+  useEffect(() => {
+    api
+      .get("/packages")
+      .then((res) => setPackages(res.data))
+      .catch(() => {});
+  }, []);
+
+  const selectedPackage = packages.find((p) => p.name === form.package);
+
+  const formatPrice = (price) => {
+    if (!price) return "";
+    return "₹" + Number(price).toLocaleString("en-IN");
+  };
 
   useEffect(() => {
     if (user) {
@@ -106,7 +122,10 @@ export default function Booking() {
                 <div className="contact-ico">📍</div>
                 <div>
                   <h4>Based In</h4>
-                  <span>Etah-Meenakshi Studio In Front of City Kotwali G.T. Road Etah UP  </span>
+                  <span>
+                    Etah-Meenakshi Studio In Front of City Kotwali G.T. Road
+                    Etah UP{" "}
+                  </span>
                 </div>
               </div>
             </div>
@@ -143,21 +162,23 @@ export default function Booking() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Phone</label>
+                  <label>Phone *</label>
                   <input
                     type="tel"
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+91 ..."
+                    required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Event Type</label>
+                  <label>Event Type *</label>
                   <select
                     name="eventType"
                     value={form.eventType}
                     onChange={handleChange}
+                    required
                   >
                     <option>Wedding</option>
                     <option>Pre-Wedding</option>
@@ -170,44 +191,63 @@ export default function Booking() {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Preferred Date</label>
+                  <label>Preferred Date *</label>
                   <input
                     type="date"
                     name="date"
                     value={form.date}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Package</label>
+                  <label>Package *</label>
                   <select
                     name="package"
                     value={form.package}
                     onChange={handleChange}
+                    required
                   >
                     <option value="">Select package</option>
-                    <option>Silver</option>
-                    <option>Gold</option>
-                    <option>Platinum</option>
+                    {packages.map((p) => (
+                      <option key={p._id} value={p.name}>
+                        {p.name}
+                      </option>
+                    ))}
                   </select>
+                  {selectedPackage && (
+                    <small
+                      style={{
+                        display: "block",
+                        marginTop: "6px",
+                        color: "var(--gold, #c9a24b)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {selectedPackage.name} —{" "}
+                      {formatPrice(selectedPackage.price)}
+                    </small>
+                  )}
                 </div>
                 <div className="form-group full">
-                  <label>Venue / Location</label>
+                  <label>Venue / Location *</label>
                   <input
                     type="text"
                     name="location"
                     value={form.location}
                     onChange={handleChange}
                     placeholder="e.g. Taj Palace, New Delhi"
+                    required
                   />
                 </div>
                 <div className="form-group full">
-                  <label>Tell Me About Your Shoot</label>
+                  <label>Tell Me About Your Shoot *</label>
                   <textarea
                     name="message"
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Location, number of guests, the story behind your event..."
+                    required
                   />
                 </div>
               </div>
