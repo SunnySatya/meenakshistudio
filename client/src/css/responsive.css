@@ -23,6 +23,7 @@
   .nav-user { display: none; }
   .logo { font-size: 1.1rem; }
   .logo img.logo-img { width: 46px; height: 46px; }
+  .navbar .logo img.logo-img { width: clamp(56px, 16vw, 92px); height: clamp(56px, 16vw, 92px); }
   .mobile-menu { max-height: calc(100vh - 72px); overflow-y: auto; }
 }
 

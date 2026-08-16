@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Users } from "lucide-react";
 import api from "../../api";
 import Toast from "../../components/admin/Toast";
 import { useAuth } from "../../context/AuthContext";
@@ -55,7 +56,9 @@ export default function ManageUsers() {
         <h3>Registered Users ({users.length})</h3>
         {users.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">👥</div>
+            <div className="empty-icon">
+              <Users size={40} />
+            </div>
             <p>No users registered yet.</p>
           </div>
         ) : (

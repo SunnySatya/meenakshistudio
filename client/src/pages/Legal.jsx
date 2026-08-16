@@ -9,7 +9,7 @@ const docs = {
       {
         heading: "1. Introduction",
         paragraphs: [
-          "Meenakshi Studio (\"we\", \"our\", or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our booking services.",
+          "Royal Photography (\"we\", \"our\", or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our booking services.",
         ],
       },
       {
@@ -76,13 +76,13 @@ const docs = {
       {
         heading: "1. Acceptance of Terms",
         paragraphs: [
-          "By accessing and using the Meenakshi Studio website and services, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please do not use our services.",
+          "By accessing and using the Royal Photography website and services, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please do not use our services.",
         ],
       },
       {
         heading: "2. Booking Requests",
         paragraphs: [
-          "Submitting a booking request through our website does not guarantee a confirmed session. All bookings are subject to availability and final confirmation by Meenakshi Studio via email or phone.",
+          "Submitting a booking request through our website does not guarantee a confirmed session. All bookings are subject to availability and final confirmation by Royal Photography via email or phone.",
         ],
       },
       {
@@ -100,7 +100,7 @@ const docs = {
       {
         heading: "5. Intellectual Property",
         paragraphs: [
-          "All content on this website, including photographs, text, logos, and graphics, is the property of Meenakshi Studio and is protected by applicable copyright laws. You may not reproduce, distribute, or use any content without our prior written consent.",
+          "All content on this website, including photographs, text, logos, and graphics, is the property of Royal Photography and is protected by applicable copyright laws. You may not reproduce, distribute, or use any content without our prior written consent.",
         ],
       },
       {
@@ -112,7 +112,7 @@ const docs = {
       {
         heading: "7. Limitation of Liability",
         paragraphs: [
-          "To the fullest extent permitted by law, Meenakshi Studio shall not be liable for any indirect, incidental, or consequential damages arising from your use of our website or services.",
+          "To the fullest extent permitted by law, Royal Photography shall not be liable for any indirect, incidental, or consequential damages arising from your use of our website or services.",
         ],
       },
       {
@@ -211,8 +211,8 @@ export default function Legal({ type }) {
           <div className="legal-contact">
             <p>
               Have questions about your privacy or these policies? Email us at{" "}
-              <a href="mailto:meenakshistudio@gmail.com">
-                meenakshistudio@gmail.com
+              <a href="mailto:sunnysatya4@gmail.com">
+                sunnysatya4@gmail.com
               </a>
             </p>
           </div>

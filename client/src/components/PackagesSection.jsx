@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Check, X } from "lucide-react";
 import api from "../api";
 
 export default function PackagesSection() {
@@ -49,16 +50,26 @@ export default function PackagesSection() {
                 {formatPrice(pkg.price)}
                 <span> /event</span>
               </div>
+              <div className="package-advance">
+                Advance to confirm:{" "}
+                <strong>{formatPrice(pkg.advance)}</strong>
+              </div>
               <ul className="package-features">
                 {pkg.features.map((f, i) => (
                   <li key={i}>
-                    <span className="check">✦</span> {f}
+                    <span className="check">
+                      <Check size={14} />
+                    </span>{" "}
+                    {f}
                   </li>
                 ))}
                 {pkg.disabledFeatures &&
                   pkg.disabledFeatures.map((f, i) => (
                     <li key={`d-${i}`} className="disabled">
-                      <span className="cross">✖</span> {f}
+                      <span className="cross">
+                        <X size={14} />
+                      </span>{" "}
+                      {f}
                     </li>
                   ))}
               </ul>

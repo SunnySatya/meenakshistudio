@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FolderOpen } from "lucide-react";
 import api from "../../api";
 import Toast from "../../components/admin/Toast";
 
@@ -121,7 +122,9 @@ export default function ManageCategories() {
         <h3>All Categories ({categories.length})</h3>
         {categories.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📂</div>
+            <div className="empty-icon">
+              <FolderOpen size={40} />
+            </div>
             <p>No categories yet.</p>
           </div>
         ) : (

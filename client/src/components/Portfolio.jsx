@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ZoomIn } from "lucide-react";
 import api from "../api";
 
 export default function Portfolio({ onOpen }) {
@@ -66,7 +67,9 @@ export default function Portfolio({ onOpen }) {
               />
 
               <div className="masonry-overlay">
-                <div className="zoom-icon">🔍</div>
+                <div className="zoom-icon">
+                  <ZoomIn size={20} />
+                </div>
                 <div>
                   <h4>{item.title}</h4>
                   <p>{item.category}</p>

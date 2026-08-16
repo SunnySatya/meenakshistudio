@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import PasswordInput from "../components/PasswordInput";
+import logo from "../images/weblogo.png";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -35,9 +36,9 @@ export default function AdminLogin() {
     <div className="admin-login-page">
       <div className="admin-login-card">
         <Link to="/" className="logo">
-          <span className="logo-mark">📸</span>
+          <img src={logo} alt="Royal Photography" className="logo-img" />
           <span className="logo-text">
-            Meenakshi <em>Studio</em>
+            Royal <em>Photography</em>
           </span>
         </Link>
         <h2>Admin Dashboard</h2>
@@ -52,7 +53,7 @@ export default function AdminLogin() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@meenakshistudio.com"
+              placeholder="sunnysatya4@gmail.com"
               required
             />
           </div>
@@ -74,7 +75,7 @@ export default function AdminLogin() {
           </button>
         </form>
 
-        <p className="admin-hint">Default: admin@meenakshistudio.com / admin123</p>
+        <p className="admin-hint">Default: sunnysatya4@gmail.com / admin123</p>
       </div>
     </div>
   );

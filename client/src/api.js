@@ -6,7 +6,7 @@ const api = axios.create({
 
 // Add token to every request
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("meenakshistudio_token");
+  const token = localStorage.getItem("royalphotography_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -18,8 +18,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("meenakshistudio_token");
-      localStorage.removeItem("meenakshistudio_user");
+      localStorage.removeItem("royalphotography_token");
+      localStorage.removeItem("royalphotography_user");
     }
     return Promise.reject(error);
   },

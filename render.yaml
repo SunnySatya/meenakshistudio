@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: meenakshistudio
+    name: royalphotography
     runtime: node
     plan: free
     # Install all deps (root postinstall installs server & client), then build client

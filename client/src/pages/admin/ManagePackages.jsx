@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Package, Star } from "lucide-react";
 import api from "../../api";
 import Toast from "../../components/admin/Toast";
 
 const emptyForm = {
   name: "",
   price: 0,
+  advance: 5000,
   description: "",
   icon: "📦",
   features: [],
@@ -33,7 +35,10 @@ export default function ManagePackages() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: name === "price" ? Number(value) : value });
+    setForm({
+      ...form,
+      [name]: name === "price" || name === "advance" ? Number(value) : value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -69,6 +74,7 @@ export default function ManagePackages() {
     setForm({
       name: p.name,
       price: p.price,
+      advance: p.advance || 5000,
       description: p.description,
       icon: p.icon,
       featured: p.featured,
@@ -112,6 +118,16 @@ export default function ManagePackages() {
               type="number"
               value={form.price}
               onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Advance Amount</label>
+            <input
+              name="advance"
+              type="number"
+              value={form.advance}
+              onChange={handleChange}
+              placeholder="e.g. 5000"
             />
           </div>
           <div className="form-group">
@@ -181,7 +197,9 @@ export default function ManagePackages() {
         <h3>All Packages ({packages.length})</h3>
         {packages.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📦</div>
+            <div className="empty-icon">
+              <Package size={40} />
+            </div>
             <p>No packages yet.</p>
           </div>
         ) : (
@@ -201,7 +219,13 @@ export default function ManagePackages() {
                   <tr key={p._id}>
                     <td style={{ fontSize: "1.5rem" }}>{p.icon}</td>
                     <td>
-                      {p.name} {p.featured && "⭐"}
+                      {p.name}{" "}
+                      {p.featured && (
+                        <Star
+                          size={14}
+                          style={{ verticalAlign: "middle", color: "#f5b301" }}
+                        />
+                      )}
                     </td>
                     <td className="hide-sm">{formatPrice(p.price)}</td>
                     <td className="hide-sm">{p.features.length} items</td>

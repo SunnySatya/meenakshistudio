@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  Calendar,
+  Camera,
+  MapPin,
+  Gift,
+  User,
+  CreditCard,
+} from "lucide-react";
 import api from "../api";
 import { useAuth } from "../context/AuthContext";
 
@@ -129,7 +137,9 @@ export default function UserDashboard() {
               </div>
             ) : bookings.length === 0 ? (
               <div className="empty-state">
-                <div className="empty-icon">📅</div>
+                <div className="empty-icon">
+                  <Calendar size={40} />
+                </div>
                 <h3>No bookings yet</h3>
                 <p>
                   You haven't made any booking requests. Ready to capture your
@@ -145,7 +155,9 @@ export default function UserDashboard() {
                   <div className="ud-booking-card" key={b._id}>
                     <div className="ud-booking-top">
                       <div className="ud-booking-event">
-                        <span className="ud-event-icon">📸</span>
+                        <span className="ud-event-icon">
+                          <Camera size={22} />
+                        </span>
                         <div>
                           <h4>{b.eventType || "Photography Session"}</h4>
                           <span className={`ud-status status-${b.status}`}>
@@ -160,38 +172,48 @@ export default function UserDashboard() {
 
                     <div className="ud-booking-details">
                       <div className="ud-detail">
-                        <span className="ud-detail-icon">📅</span>
+                        <span className="ud-detail-icon">
+                          <Calendar size={16} />
+                        </span>
                         <div>
                           <label>Date</label>
                           <p>{formatDate(b.date)}</p>
                         </div>
                       </div>
                       <div className="ud-detail">
-                        <span className="ud-detail-icon">📍</span>
+                        <span className="ud-detail-icon">
+                          <MapPin size={16} />
+                        </span>
                         <div>
                           <label>Venue / Location</label>
                           <p>{b.location || "To be confirmed"}</p>
                         </div>
                       </div>
                       <div className="ud-detail">
-                        <span className="ud-detail-icon">🎁</span>
+                        <span className="ud-detail-icon">
+                          <Gift size={16} />
+                        </span>
                         <div>
                           <label>Package</label>
                           <p>{b.package || "Custom"}</p>
                         </div>
                       </div>
                       <div className="ud-detail">
-                        <span className="ud-detail-icon">👤</span>
+                        <span className="ud-detail-icon">
+                          <User size={16} />
+                        </span>
                         <div>
                           <label>Photographer</label>
-                          <p>{b.photographer || "Meenakshi Studio"}</p>
+                          <p>{b.photographer || "Royal Photography"}</p>
                         </div>
                       </div>
                     </div>
 
                     <div className="ud-payment">
                       <div className="ud-payment-head">
-                        <span>💳 Payment Details</span>
+                        <span>
+                          <CreditCard size={16} style={{ marginRight: 6, verticalAlign: "middle" }} /> Payment Details
+                        </span>
                         <span
                           className={`ud-pay-badge ${
                             remaining(b) <= 0 ? "paid" : "due"

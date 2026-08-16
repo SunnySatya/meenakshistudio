@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Calendar } from "lucide-react";
 import api from "../../api";
 import Toast from "../../components/admin/Toast";
 
@@ -81,7 +82,9 @@ export default function ManageBookings() {
         <h3>All Bookings ({bookings.length})</h3>
         {bookings.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📅</div>
+            <div className="empty-icon">
+              <Calendar size={40} />
+            </div>
             <p>No bookings yet.</p>
           </div>
         ) : (

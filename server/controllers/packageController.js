@@ -12,7 +12,8 @@ const getPackages = async (req, res) => {
 // @route  POST /api/packages
 // @access Private/Admin
 const createPackage = async (req, res) => {
-  const { name, icon, price, featured, features, disabledFeatures } = req.body;
+  const { name, icon, price, advance, featured, features, disabledFeatures } =
+    req.body;
   if (!name || !price) {
     return res.status(400).json({ message: "Name and price are required" });
   }
@@ -20,6 +21,7 @@ const createPackage = async (req, res) => {
     name,
     icon: icon || "📦",
     price,
+    advance: advance || 5000,
     featured: featured || false,
     features: features || [],
     disabledFeatures: disabledFeatures || [],
@@ -35,7 +37,15 @@ const updatePackage = async (req, res) => {
   if (!pkg) {
     return res.status(404).json({ message: "Package not found" });
   }
-  const fields = ["name", "icon", "price", "featured", "features", "disabledFeatures"];
+  const fields = [
+    "name",
+    "icon",
+    "price",
+    "advance",
+    "featured",
+    "features",
+    "disabledFeatures",
+  ];
   fields.forEach((field) => {
     if (req.body[field] !== undefined) pkg[field] = req.body[field];
   });

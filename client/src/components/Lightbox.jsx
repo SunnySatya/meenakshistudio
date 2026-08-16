@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { X } from "lucide-react";
 
 export default function Lightbox({ item, onClose }) {
   useEffect(() => {
@@ -21,11 +22,11 @@ export default function Lightbox({ item, onClose }) {
     <div className="lightbox active" onClick={onClose}>
       <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
         <button className="lightbox-close" onClick={onClose}>
-          ✕
+          <X size={24} />
         </button>
         <img src={item.image} alt={item.title} />
         <div className="lightbox-caption">
-          {item.title} — {item.category} • by {item.photographer || "Meenakshi Studio"}
+          {item.title} — {item.category} • by {item.photographer || "Royal Photography"}
         </div>
       </div>
     </div>

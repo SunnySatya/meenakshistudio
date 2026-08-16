@@ -24,11 +24,11 @@ const seed = async () => {
   // Admin user
   await User.create({
     name: "Admin",
-    email: "admin@meenakshistudio.com",
-    password: "admin123",
+    email: "sunnysatya4@gmail.com",
+    password: "Sunny@Satya123",
     role: "admin",
   });
-  console.log("👤 Admin created: admin@meenakshistudio.com / admin123");
+  console.log("👤 Admin created: sunnysatya4@gmail.com / admin@123");
 
   // Categories
   const categoryData = [
@@ -134,84 +134,84 @@ const seed = async () => {
       image:
         "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80",
       category: "Wedding",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Sacred Vows",
       image:
         "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80",
       category: "Wedding",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Haldi Ceremony Joy",
       image:
         "https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?w=600&q=80",
       category: "Haldi",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Festive Haldi Fun",
       image:
         "https://images.unsplash.com/photo-1621857008318-1a4da4f0ecb9?w=600&q=80",
       category: "Haldi",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Mehendi Celebration",
       image:
         "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600&q=80",
       category: "Mehendi",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Mehendi Artistry",
       image:
         "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=600&q=80",
       category: "Mehendi",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Ring Exchange Moment",
       image:
         "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&q=80",
       category: "Ring Ceremony",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "The Promise",
       image:
         "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80",
       category: "Ring Ceremony",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Grand Celebration",
       image:
         "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80",
       category: "Event",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Festive Gathering",
       image:
         "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80",
       category: "Event",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Romantic Couple",
       image:
         "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80",
       category: "Wedding",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
     {
       title: "Indian Couple Portrait",
       image:
         "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=600&q=80",
       category: "Wedding",
-      photographer: "Meenakshi",
+      photographer: "Royal Photography",
     },
   ];
   await Portfolio.insertMany(portfolioData);
@@ -246,6 +246,7 @@ const seed = async () => {
       name: "Silver",
       icon: "🥈",
       price: 50000,
+      advance: 1,
       featured: false,
       features: [
         "Full Wedding",
@@ -275,6 +276,7 @@ const seed = async () => {
       name: "Gold",
       icon: "🥇",
       price: 80000,
+      advance: 10000,
       featured: true,
       features: [
         "Full Wedding",
@@ -304,6 +306,7 @@ const seed = async () => {
       name: "Platinum",
       icon: "💎",
       price: 130000,
+      advance: 18000,
       featured: false,
       features: masterFeatures.slice(),
       disabledFeatures: [],
@@ -343,7 +346,7 @@ const seed = async () => {
   console.log("💬 Testimonials seeded");
 
   console.log("\n✅ Seeding complete!");
-  console.log("🔑 Admin login: admin@meenakshistudio.com / admin123");
+  console.log("🔑 Admin login: sunnysatya4@gmail.com / admin123");
   process.exit(0);
 };
 

@@ -2,7 +2,7 @@
   "name": "meenakshi-studio",
   "version": "1.0.0",
   "private": true,
-  "description": "Meenakshi Studio — Photography booking platform (client + server)",
+  "description": "Royal Photography — Photography booking platform (client + server)",
 "scripts": {
     "install:all": "npm install --prefix server && npm install --prefix client",
     "seed": "npm run seed --prefix server",

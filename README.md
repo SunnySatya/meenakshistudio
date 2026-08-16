@@ -1,4 +1,4 @@
-# Meenakshi Studio — Photography Booking Platform
+# Royal Photography — Photography Booking Platform
 
 A full-stack photography portfolio & booking platform built with a **React (Vite)** frontend and an **Express + MongoDB** backend.
 
@@ -67,6 +67,22 @@ CLOUDINARY_API_SECRET=your_api_secret
 > Replace `MONGO_URI` with your own MongoDB connection string (local or Atlas). The `JWT_SECRET` can be any random string.
 
 > **Cloudinary is required for uploaded images to persist.** Create a free account at https://cloudinary.com and copy your **Cloud Name**, **API Key**, and **API Secret** from the Dashboard into the `.env` file. Without these, newly uploaded images fall back to local storage, which is **not** persistent on deployed servers (they disappear after a restart/deploy).
+
+### Email booking notifications
+
+Every new booking triggers an email alert to your inbox. Setup with Gmail:
+
+1. Turn on **2-Step Verification** on your Google account (myaccount.google.com/security).
+2. Go to https://myaccount.google.com/apppasswords and generate an **App Password** (16-char code).
+3. In `server/.env` set:
+   ```
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USER=your_email@gmail.com
+   SMTP_PASS=the_16_char_app_password
+   NOTIFY_EMAIL=your_email@gmail.com
+   ```
+4. Restart the server. Until the SMTP credentials are set, notifications are skipped gracefully (logged, never block bookings).
 
 ### 3. Seed the database (optional)
 
@@ -141,5 +157,5 @@ After logging in as admin, you can manage:
 
 ## License
 
-© Meenakshi Studio. All rights reserved.
+© Royal Photography. All rights reserved.
 </content>

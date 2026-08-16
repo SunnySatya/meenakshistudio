@@ -13,6 +13,8 @@ const bookingSchema = new mongoose.Schema(
     package: { type: String, default: "" },
     totalAmount: { type: Number, default: 0 },
     paidAmount: { type: Number, default: 0 },
+    paymentId: { type: String, default: "" },
+    orderId: { type: String, default: "" },
     status: {
       type: String,
       enum: ["pending", "confirmed", "completed", "cancelled"],

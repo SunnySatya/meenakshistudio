@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import logo from "../images/logo-sm.png";
+import logo from "../images/weblogo.png";
 
 const menuItems = [
   { label: "Home", href: "#home" },
@@ -34,9 +34,9 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="container nav-inner">
         <a href="#home" className="logo" onClick={(e) => scrollTo(e, "#home")}>
-          <img src={logo} alt="Meenakshi Studio" className="logo-img" />
+          <img src={logo} alt="Royal Photography" className="logo-img" />
           <span className="logo-text">
-            Meenakshi <em>Studio</em>
+            Royal <em>Photography</em>
           </span>
         </a>
 

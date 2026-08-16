@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Images } from "lucide-react";
 import api from "../../api";
 import Toast from "../../components/admin/Toast";
 
@@ -202,7 +203,9 @@ export default function ManagePortfolio() {
         <h3>All Portfolio Items ({items.length})</h3>
         {items.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">🖼️</div>
+            <div className="empty-icon">
+              <Images size={40} />
+            </div>
             <p>No portfolio items yet. Upload your recent work above.</p>
           </div>
         ) : (

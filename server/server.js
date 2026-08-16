@@ -16,6 +16,8 @@ const testimonialRoutes = require("./routes/testimonialRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const userRoutes = require("./routes/userRoutes");
+const subscriberRoutes = require("./routes/subscriberRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 connectDB();
 
@@ -58,11 +60,13 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/subscribers", subscriberRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // Health check (API)
 if (hasClientDist) {
   app.get("/api/health", (req, res) => {
-    res.json({ message: "Meenakshi Studio API is running 🚀" });
+    res.json({ message: "Royal Photography API is running 🚀" });
   });
 
   // SPA fallback: serve index.html for any non-API route (client-side routing)
@@ -71,7 +75,7 @@ if (hasClientDist) {
   });
 } else {
   app.get("/", (req, res) => {
-    res.json({ message: "Meenakshi Studio API is running 🚀" });
+    res.json({ message: "Royal Photography API is running 🚀" });
   });
 }
 

@@ -1,5 +1,6 @@
 const Booking = require("../models/Booking");
 const Package = require("../models/Package");
+const { notifyBooking } = require("../utils/email");
 
 // @desc   Get all bookings
 // @route  GET /api/bookings
@@ -63,6 +64,9 @@ const createBooking = async (req, res) => {
     totalAmount: resolvedTotal,
     paidAmount: paidAmount || 0,
   });
+
+  notifyBooking(booking);
+
   res.status(201).json(booking);
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
-import about1 from "../images/about1.jpg";
-import about2 from "../images/about2.jpg";
+import { Gem, Heart, Shirt, Clapperboard } from "lucide-react";
+import about1 from "../images/about1.png";
+import about2 from "../images/about2.png";
 
 export default function About() {
   return (
@@ -9,11 +10,11 @@ export default function About() {
         <div className="about-wrap">
           <div className="about-visual">
             <div className="about-exp">
-              <strong>22+</strong>
+              <strong>12+</strong>
               <span>Years of Art</span>
             </div>
             <div className="main-img">
-              <img src={about1} alt="Deepak Gupta — Photographer" />
+              <img src={about1} alt="Shani Devpriya — Photographer" />
             </div>
             <div className="about-frame">
               <img src={about2} alt="Haldi ceremony moment" />
@@ -28,7 +29,7 @@ export default function About() {
               the Lens
             </h2>
             <p>
-              Hello, I'm <em>Deepak Gupta</em> — a passionate photographer who
+              Hello, I'm <em>Shani Devpriya</em> — a passionate photographer who
               believes every moment deserves to be preserved beautifully. For
               over a decade, I've had the privilege of capturing weddings,
               portraits, and once-in-a-lifetime celebrations for families across
@@ -43,20 +44,32 @@ export default function About() {
 
             <div className="about-skills">
               <div className="skill-tag">
-                <span className="icon">💍</span> Wedding Photography
+                <span className="icon">
+                  <Gem size={18} />
+                </span>{" "}
+                Wedding Photography
               </div>
               <div className="skill-tag">
-                <span className="icon">❤️</span> Pre-Wedding &amp; Portraits
+                <span className="icon">
+                  <Heart size={18} />
+                </span>{" "}
+                Pre-Wedding &amp; Portraits
               </div>
               <div className="skill-tag">
-                <span className="icon">👗</span> Fashion &amp; Editorial
+                <span className="icon">
+                  <Shirt size={18} />
+                </span>{" "}
+                Fashion &amp; Editorial
               </div>
               <div className="skill-tag">
-                <span className="icon">🎬</span> Cinematic Films
+                <span className="icon">
+                  <Clapperboard size={18} />
+                </span>{" "}
+                Cinematic Films
               </div>
             </div>
 
-            <div className="about-sign">— Deepak Gupta</div>
+            <div className="about-sign">— Shani Devpriya</div>
           </div>
         </div>
       </div>

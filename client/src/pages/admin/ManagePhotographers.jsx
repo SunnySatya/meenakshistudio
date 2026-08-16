@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Rocket, BadgeCheck, Star } from "lucide-react";
 import api from "../../api";
 import Toast from "../../components/admin/Toast";
 
@@ -249,7 +250,9 @@ export default function ManagePhotographers() {
         <h3>All Photographers ({photographers.length})</h3>
         {photographers.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">🧑‍🚀</div>
+            <div className="empty-icon">
+              <Rocket size={40} />
+            </div>
             <p>No photographers yet.</p>
           </div>
         ) : (
@@ -272,10 +275,22 @@ export default function ManagePhotographers() {
                       <img src={p.avatar} alt={p.name} className="thumb" />
                     </td>
                     <td>
-                      {p.name} {p.verified && "✔"}
+                      {p.name}{" "}
+                      {p.verified && (
+                        <BadgeCheck
+                          size={15}
+                          style={{ verticalAlign: "middle", color: "#0aa2c0" }}
+                        />
+                      )}
                     </td>
                     <td>{p.specialty}</td>
-                    <td className="hide-sm">★ {p.rating}</td>
+                    <td className="hide-sm">
+                      <Star
+                        size={14}
+                        style={{ verticalAlign: "middle", color: "#f5b301" }}
+                      />{" "}
+                      {p.rating}
+                    </td>
                     <td className="hide-sm">{formatPrice(p.price)}</td>
                     <td>
                       <div className="actions">

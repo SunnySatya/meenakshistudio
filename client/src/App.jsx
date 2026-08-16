@@ -14,8 +14,10 @@ import ManagePackages from "./pages/admin/ManagePackages";
 import ManageTestimonials from "./pages/admin/ManageTestimonials";
 import ManageBookings from "./pages/admin/ManageBookings";
 import ManageUsers from "./pages/admin/ManageUsers";
+import ManageSubscribers from "./pages/admin/ManageSubscribers";
 import { useAuth } from "./context/AuthContext";
 import WhatsAppButton from "./components/WhatsAppButton";
+import Chatbot from "./components/Chatbot";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -60,9 +62,11 @@ export default function App() {
           <Route path="testimonials" element={<ManageTestimonials />} />
           <Route path="bookings" element={<ManageBookings />} />
           <Route path="users" element={<ManageUsers />} />
+          <Route path="subscribers" element={<ManageSubscribers />} />
         </Route>
       </Routes>
       <WhatsAppButton />
+      <Chatbot />
     </>
   );
 }

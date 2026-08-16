@@ -9,14 +9,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token =
-      localStorage.getItem("token") || localStorage.getItem("meenakshistudio_token");
+      localStorage.getItem("token") || localStorage.getItem("royalphotography_token");
     if (token) {
       api
         .get("/auth/me")
         .then((res) => setUser(res.data.user))
         .catch(() => {
           localStorage.removeItem("token");
-          localStorage.removeItem("meenakshistudio_token");
+localStorage.removeItem("royalphotography_token");
         })
         .finally(() => setLoading(false));
     } else {
@@ -33,8 +33,8 @@ export const AuthProvider = ({ children }) => {
       role: res.data.role,
     };
     localStorage.setItem("token", res.data.token);
-    localStorage.setItem("meenakshistudio_token", res.data.token);
-    localStorage.setItem("meenakshistudio_user", JSON.stringify(userData));
+    localStorage.setItem("royalphotography_token", res.data.token);
+    localStorage.setItem("royalphotography_user", JSON.stringify(userData));
     setUser(userData);
     return res.data;
   };
@@ -48,16 +48,16 @@ export const AuthProvider = ({ children }) => {
       role: res.data.role,
     };
     localStorage.setItem("token", res.data.token);
-    localStorage.setItem("meenakshistudio_token", res.data.token);
-    localStorage.setItem("meenakshistudio_user", JSON.stringify(userData));
+    localStorage.setItem("royalphotography_token", res.data.token);
+    localStorage.setItem("royalphotography_user", JSON.stringify(userData));
     setUser(userData);
     return res.data;
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("meenakshistudio_token");
-    localStorage.removeItem("meenakshistudio_user");
+    localStorage.removeItem("royalphotography_token");
+    localStorage.removeItem("royalphotography_user");
     setUser(null);
   };
 

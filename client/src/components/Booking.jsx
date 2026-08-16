@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import api from "../api";
 import { useAuth } from "../context/AuthContext";
 
@@ -47,12 +48,67 @@ export default function Booking() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      if (window.Razorpay) return resolve(true);
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePayment = async (bookingId, receiptInfo) => {
+    const loaded = await loadRazorpayScript();
+    if (!loaded) {
+      throw new Error("Could not load Razorpay. Please try again.");
+    }
+
+    const orderRes = await api.post("/payments/create-order", { bookingId });
+    const { orderId, keyId } = orderRes.data;
+
+    return new Promise((resolve, reject) => {
+      const rzp = new window.Razorpay({
+        key: keyId,
+        order_id: orderId,
+        amount: orderRes.data.amount * 100,
+        currency: "INR",
+        name: "Royal Photography",
+        description: `Advance payment for ${receiptInfo.package || "booking"} session`,
+        prefill: {
+          name: receiptInfo.name,
+          email: receiptInfo.email,
+          contact: receiptInfo.phone,
+        },
+        handler: async (response) => {
+          try {
+            await api.post("/payments/verify", {
+              bookingId,
+              razorpayOrderId: response.razorpay_order_id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: response.razorpay_signature,
+            });
+            resolve();
+          } catch (err) {
+            reject(err);
+          }
+        },
+        modal: {
+          ondismiss: () => reject(new Error("Payment cancelled")),
+        },
+        theme: { color: "#c9a24b" },
+      });
+      rzp.open();
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus(null);
     try {
-      await api.post("/bookings", {
+      const res = await api.post("/bookings", {
         name: form.name,
         email: form.email,
         phone: form.phone,
@@ -60,11 +116,31 @@ export default function Booking() {
         date: form.date || undefined,
         package: form.package,
         location: form.location,
-        photographer: "Meenakshi Studio",
+        photographer: "Royal Photography",
       });
+
+      const advanceAmount =
+        form.package === "Other"
+          ? 1000
+          : form.eventType === "Small Party"
+            ? 1000
+            : selectedPackage?.advance ||
+              (selectedPackage
+                ? Math.round(selectedPackage.price * 0.25)
+                : 5000);
+
+      await handlePayment(res.data._id, {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        package: form.package,
+      });
+
       setStatus({
         type: "success",
-        msg: "Thank you! Your booking request has been received. I'll get back to you shortly.",
+        msg: `Payment successful! Your booking is confirmed. Advance of ${formatPrice(
+          advanceAmount,
+        )} received. I'll get back to you shortly.`,
       });
       setForm({
         name: user ? user.name : "",
@@ -77,9 +153,13 @@ export default function Booking() {
         message: "",
       });
     } catch (err) {
+      const msg = err.response?.data?.message;
       setStatus({
         type: "error",
-        msg: "Something went wrong. Please try again or contact me directly.",
+        msg:
+          msg && msg !== "Payment cancelled"
+            ? msg
+            : "Booking received. Payment pending — you can pay the advance later via WhatsApp.",
       });
     } finally {
       setLoading(false);
@@ -105,27 +185,30 @@ export default function Booking() {
 
             <div className="booking-contact">
               <div className="contact-row">
-                <div className="contact-ico">📧</div>
+                <div className="contact-ico">
+                  <Mail size={18} />
+                </div>
                 <div>
                   <h4>Email</h4>
-                  <span>meenakshistudio@gmail.com</span>
+                  <span>sunnysatya4@gmail.com</span>
                 </div>
               </div>
               <div className="contact-row">
-                <div className="contact-ico">📞</div>
+                <div className="contact-ico">
+                  <Phone size={18} />
+                </div>
                 <div>
                   <h4>Phone</h4>
-                  <span>+919719177111</span>
+                  <span>+916398665027</span>
                 </div>
               </div>
               <div className="contact-row">
-                <div className="contact-ico">📍</div>
+                <div className="contact-ico">
+                  <MapPin size={18} />
+                </div>
                 <div>
                   <h4>Based In</h4>
-                  <span>
-                    Etah-Meenakshi Studio In Front of City Kotwali G.T. Road
-                    Etah UP{" "}
-                  </span>
+                  <span>We Get Only Online Work, Help Address- Etah UP </span>
                 </div>
               </div>
             </div>
@@ -185,6 +268,7 @@ export default function Booking() {
                     <option>Portrait</option>
                     <option>Fashion</option>
                     <option>Birthday</option>
+                    <option>Small Party</option>
                     <option>Corporate</option>
                     <option>Maternity</option>
                     <option>Other</option>
@@ -214,6 +298,7 @@ export default function Booking() {
                         {p.name}
                       </option>
                     ))}
+                    <option value="Other">Other</option>
                   </select>
                   {selectedPackage && (
                     <small
@@ -226,6 +311,34 @@ export default function Booking() {
                     >
                       {selectedPackage.name} —{" "}
                       {formatPrice(selectedPackage.price)}
+                      <br />
+                      <span style={{ color: "#0aa2c0" }}>
+                        Advance to confirm: {formatPrice(selectedPackage.advance)}
+                      </span>
+                    </small>
+                  )}
+                  {form.package === "Other" && (
+                    <small
+                      style={{
+                        display: "block",
+                        marginTop: "6px",
+                        color: "#0aa2c0",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Advance to confirm: {formatPrice(1000)}
+                    </small>
+                  )}
+                  {form.eventType === "Small Party" && (
+                    <small
+                      style={{
+                        display: "block",
+                        marginTop: "6px",
+                        color: "#0aa2c0",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Advance to confirm: {formatPrice(1000)}
                     </small>
                   )}
                 </div>
@@ -257,7 +370,7 @@ export default function Booking() {
                 className="btn btn-gold btn-lg"
                 disabled={loading}
               >
-                {loading ? "Submitting..." : "Request Booking"}
+                {loading ? "Processing..." : "Pay Advance & Confirm Booking"}
               </button>
 
               {status && (

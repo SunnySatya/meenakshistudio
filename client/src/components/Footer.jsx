@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../images/logo-sm.png";
+import { Heart } from "lucide-react";
+import logo from "../images/weblogo.png";
+import api from "../api";
 
 export default function Footer() {
+  const [subscribeEmail, setSubscribeEmail] = useState("");
+  const [subscribeMsg, setSubscribeMsg] = useState("");
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/subscribers", { email: subscribeEmail });
+      setSubscribeMsg(res.data.message || "Subscribed! Welcome to Royal Photography.");
+      setSubscribeEmail("");
+    } catch (err) {
+      setSubscribeMsg(
+        err.response?.data?.message || "Something went wrong. Please try again.",
+      );
+    }
+    setTimeout(() => setSubscribeMsg(""), 4000);
+  };
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">
             <a href="#home" className="logo">
-              <img src={logo} alt="Meenakshi Studio" className="logo-img" />
+              <img src={logo} alt="Royal Photography" className="logo-img" />
               <span className="logo-text">
-                Meenakshi <em>Studio</em>
+                Royal <em>Photography</em>
               </span>
             </a>
             <p>
@@ -135,21 +154,27 @@ export default function Footer() {
             </p>
             <form
               className="newsletter-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                e.target.reset();
-                alert("Subscribed! Welcome to Meenakshi Studio.");
-              }}
+              onSubmit={handleSubscribe}
             >
-              <input type="email" placeholder="Your email" required />
+              <input
+                type="email"
+                placeholder="Your email"
+                required
+                value={subscribeEmail}
+                onChange={(e) => setSubscribeEmail(e.target.value)}
+              />
               <button type="submit">→</button>
             </form>
+            {subscribeMsg && (
+              <p className="newsletter-msg">{subscribeMsg}</p>
+            )}
           </div>
         </div>
 
         <div className="footer-bottom">
           <p>
-            © 2025 Meenakshi Studio. All rights reserved. Crafted with 💛 &amp;
+            © 2025 Royal Photography. All rights reserved. Crafted with{" "}
+            <Heart size={14} style={{ display: "inline", verticalAlign: "middle" }} /> &amp;
             passion. Developed by{" "}
             <a href="https://myportfolio-nbob.onrender.com">
               <b>Shani Devpriya</b>

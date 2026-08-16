@@ -97,7 +97,7 @@ export default function Hero() {
           <div className="hero-stats-strip">
             <div className="hero-stat">
               <strong>
-                22<span>+</span>
+                12<span>+</span>
               </strong>
               <span>Years Experience</span>
             </div>

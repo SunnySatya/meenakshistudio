@@ -38,7 +38,7 @@ function optimizeImage(req, res, next) {
   // Upload to Cloudinary.
   cloudinary.uploader.upload(
     filePath,
-    { folder: "meenakshistudio", resource_type: "image" },
+    { folder: "royalphotography", resource_type: "image" },
     (error, result) => {
       // Always clean up the local temp file.
       fs.unlink(filePath, () => {});

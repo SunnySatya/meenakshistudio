@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MessageSquare } from "lucide-react";
 import api from "../../api";
 import Toast from "../../components/admin/Toast";
 
@@ -151,7 +152,9 @@ export default function ManageTestimonials() {
         <h3>All Testimonials ({testimonials.length})</h3>
         {testimonials.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">💬</div>
+            <div className="empty-icon">
+              <MessageSquare size={40} />
+            </div>
             <p>No testimonials yet.</p>
           </div>
         ) : (

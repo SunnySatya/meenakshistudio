@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import PasswordInput from "../components/PasswordInput";
+import logo from "../images/weblogo.png";
 
 export default function UserAuth() {
   const [mode, setMode] = useState("login"); // "login" | "signup"
@@ -41,9 +42,9 @@ export default function UserAuth() {
     <div className="admin-login-page">
       <div className="admin-login-card auth-card">
         <Link to="/" className="logo">
-          <span className="logo-mark">M</span>
+          <img src={logo} alt="Royal Photography" className="logo-img" />
           <span className="logo-text">
-            Meenakshi <em>Studio</em>
+            Royal <em>Photography</em>
           </span>
         </Link>
 

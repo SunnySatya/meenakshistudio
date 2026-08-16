@@ -1,4 +1,22 @@
 import React, { useState, useEffect } from "react";
+import {
+  Images,
+  Camera,
+  FolderOpen,
+  Package,
+  MessageSquare,
+  Calendar,
+  IndianRupee,
+  Pin,
+  Hourglass,
+  Receipt,
+  CheckCircle2,
+  CircleCheck,
+  Clock3,
+  XCircle,
+  BarChart3,
+  PartyPopper,
+} from "lucide-react";
 import api from "../../api";
 
 export default function Dashboard() {
@@ -50,12 +68,12 @@ export default function Dashboard() {
   }, []);
 
   const stats = [
-    { label: "Portfolio Items", value: counts.portfolio, icon: "🖼️" },
-    { label: "Photographers", value: counts.photographers, icon: "🧑‍🚀" },
-    { label: "Categories", value: counts.categories, icon: "📂" },
-    { label: "Packages", value: counts.packages, icon: "📦" },
-    { label: "Testimonials", value: counts.testimonials, icon: "💬" },
-    { label: "Bookings", value: counts.bookings, icon: "📅" },
+    { label: "Portfolio Items", value: counts.portfolio, icon: Images },
+    { label: "Photographers", value: counts.photographers, icon: Camera },
+    { label: "Categories", value: counts.categories, icon: FolderOpen },
+    { label: "Packages", value: counts.packages, icon: Package },
+    { label: "Testimonials", value: counts.testimonials, icon: MessageSquare },
+    { label: "Bookings", value: counts.bookings, icon: Calendar },
   ];
 
   // ----- Money management metrics (derived from bookings) -----
@@ -85,26 +103,26 @@ export default function Dashboard() {
     {
       label: "Total Earnings",
       value: "₹" + money.totalEarned.toLocaleString(),
-      icon: "💰",
+      icon: IndianRupee,
       accent: "green",
     },
     {
       label: "Advance Bookings",
       value: advanceBookings,
-      icon: "📌",
+      icon: Pin,
       accent: "blue",
       sub: `₹${money.due.toLocaleString()} pending`,
     },
     {
       label: "Remaining / Due",
       value: "₹" + money.due.toLocaleString(),
-      icon: "⏳",
+      icon: Hourglass,
       accent: "red",
     },
     {
       label: "Total Booking Value",
       value: "₹" + money.totalValue.toLocaleString(),
-      icon: "🧾",
+      icon: Receipt,
       accent: "gold",
     },
   ];
@@ -113,25 +131,25 @@ export default function Dashboard() {
     {
       label: "Completed",
       value: statusCount.completed,
-      icon: "✅",
+      icon: CheckCircle2,
       accent: "green",
     },
     {
       label: "Confirmed",
       value: statusCount.confirmed,
-      icon: "🟢",
+      icon: CircleCheck,
       accent: "blue",
     },
     {
       label: "Pending",
       value: statusCount.pending,
-      icon: "🕒",
+      icon: Clock3,
       accent: "gold",
     },
     {
       label: "Cancelled",
       value: statusCount.cancelled,
-      icon: "❌",
+      icon: XCircle,
       accent: "red",
     },
   ];
@@ -151,7 +169,9 @@ export default function Dashboard() {
       <div className="stats-grid">
         {stats.map((s) => (
           <div className="stat-card" key={s.label}>
-            <div className="stat-card-icon">{s.icon}</div>
+            <div className="stat-card-icon">
+                <s.icon size={22} />
+              </div>
             <div className="stat-card-info">
               <h4>{s.value}</h4>
               <p>{s.label}</p>
@@ -163,7 +183,9 @@ export default function Dashboard() {
       {/* Money Management */}
       <div className="admin-card">
         <div className="money-head">
-          <h3>💰 Money Management</h3>
+          <h3>
+            <IndianRupee size={20} style={{ marginRight: 8, verticalAlign: "middle" }} /> Money Management
+          </h3>
           <span className="money-sub">Based on booking payments</span>
         </div>
 
@@ -173,7 +195,9 @@ export default function Dashboard() {
               className={`stat-card money-card money-${c.accent}`}
               key={c.label}
             >
-              <div className="stat-card-icon">{c.icon}</div>
+              <div className="stat-card-icon">
+                <c.icon size={22} />
+              </div>
               <div className="stat-card-info">
                 <h4 className="money-value">{c.value}</h4>
                 <p>{c.label}</p>
@@ -187,7 +211,9 @@ export default function Dashboard() {
       {/* Booking status breakdown */}
       <div className="admin-card">
         <div className="money-head">
-          <h3>📊 Booking Status</h3>
+          <h3>
+            <BarChart3 size={20} style={{ marginRight: 8, verticalAlign: "middle" }} /> Booking Status
+          </h3>
           <span className="money-sub">Breakdown by status</span>
         </div>
         <div className="stats-grid money-grid">
@@ -196,7 +222,9 @@ export default function Dashboard() {
               className={`stat-card money-card money-${c.accent}`}
               key={c.label}
             >
-              <div className="stat-card-icon">{c.icon}</div>
+              <div className="stat-card-icon">
+                <c.icon size={22} />
+              </div>
               <div className="stat-card-info">
                 <h4 className="money-value">{c.value}</h4>
                 <p>{c.label} Bookings</p>
@@ -207,7 +235,10 @@ export default function Dashboard() {
       </div>
 
       <div className="admin-card">
-        <h3>Welcome back, Admin 🎉</h3>
+        <h3>
+          Welcome back, Admin{" "}
+          <PartyPopper size={18} style={{ verticalAlign: "middle" }} />
+        </h3>
         <p style={{ color: "var(--text-muted)" }}>
           Manage your photography platform from the side menu. Upload recent
           work in the Portfolio section, manage photographers, categories,
